@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mighty's what to do </title>
+    <title>Mighty's what to do</title>
     <style>
         * {
             margin: 0;
@@ -13,29 +13,29 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(145deg, #1a1a1a 0%, #2d2d2d 100%);
+            background: linear-gradient(145deg, #0f1419 0%, #1a1f2e 100%);
             min-height: 100vh;
             padding: 10px;
-            color: #e0e0e0;
+            color: #e2e8f0;
         }
 
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            background: linear-gradient(145deg, #2a2a2a 0%, #1f1f1f 100%);
+            background: linear-gradient(145deg, #1e293b 0%, #151f30 100%);
             border-radius: 24px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-            border: 1px solid #404040;
+            box-shadow: 0 25px 50px rgba(0,0,20,0.6);
+            border: 1px solid #334155;
             overflow: hidden;
         }
 
         .header {
-            background: linear-gradient(135deg, #0f2e23 0%, #1a3c34 50%, #0a331f 100%);
+            background: linear-gradient(135deg, #1e3a8a 0%, #2d4a9f 50%, #1e40af 100%);
             padding: 30px 20px;
             text-align: center;
             color: #fff;
             position: relative;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+            box-shadow: 0 8px 32px rgba(30,58,138,0.6);
         }
 
         .header::before {
@@ -45,7 +45,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(45deg, rgba(34,139,34,0.3), rgba(0,100,0,0.2));
+            background: linear-gradient(45deg, rgba(59,130,246,0.3), rgba(37,99,235,0.2));
             z-index: 0;
         }
 
@@ -59,7 +59,7 @@
             font-weight: 800;
             margin-bottom: 12px;
             text-shadow: 0 4px 16px rgba(0,0,0,0.8);
-            background: linear-gradient(135deg, #fff 0%, #e0e0e0 100%);
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -70,7 +70,7 @@
             font-weight: 600;
             margin-bottom: 20px;
             opacity: 0.95;
-            color: #f0f0f0;
+            color: #f1f5f9;
         }
 
         .stats {
@@ -83,13 +83,13 @@
         }
 
         .stat-item {
-            background: linear-gradient(145deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            background: linear-gradient(145deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.06) 100%);
             padding: 12px 20px;
             border-radius: 20px;
             backdrop-filter: blur(20px);
             box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: #fff;
+            border: 1px solid rgba(255,255,255,0.12);
+            color: #f8fafc;
         }
 
         /* Desktop Grid */
@@ -97,12 +97,12 @@
             display: grid;
             grid-template-columns: 140px 1fr 1fr 1fr;
             gap: 4px;
-            background: linear-gradient(145deg, #3a3a3a 0%, #2a2a2a 100%);
+            background: linear-gradient(145deg, #2d3748 0%, #1a202c 100%);
             margin: 30px;
             border-radius: 20px;
             overflow: hidden;
-            border: 2px solid #505050;
-            box-shadow: inset 0 4px 20px rgba(0,0,0,0.3);
+            border: 2px solid #4a5568;
+            box-shadow: inset 0 4px 20px rgba(0,0,0,0.4);
         }
 
         /* MOBILE ELEMENTS - HIDDEN ON DESKTOP */
@@ -113,22 +113,19 @@
 
         /* MOBILE STYLES */
         @media (max-width: 768px) {
-            /* Hide desktop grid */
             .schedule-grid {
                 display: none !important;
             }
 
-            /* Show mobile tabs */
             .mobile-tabs {
                 display: block !important;
-                background: linear-gradient(145deg, #3a3a3a 0%, #2a2a2a 100%);
+                background: linear-gradient(145deg, #2d3748 0%, #1a202c 100%);
                 padding: 20px;
                 margin: 0 15px 0 15px;
                 border-radius: 20px 20px 0 0;
-                border-bottom: 2px solid #505050;
+                border-bottom: 2px solid #4a5568;
             }
             
-            /* Show only active tab content */
             .tab-content.active {
                 display: block !important;
                 margin: 0 15px 15px 15px;
@@ -151,9 +148,9 @@
 
         .tab-btn {
             padding: 14px 24px;
-            border: 2px solid #606060;
-            background: linear-gradient(145deg, #404040 0%, #303030 100%);
-            color: #e0e0e0;
+            border: 2px solid #475569;
+            background: linear-gradient(145deg, #374151 0%, #1f2937 100%);
+            color: #e2e8f0;
             border-radius: 20px;
             font-weight: 700;
             font-size: 14px;
@@ -166,23 +163,23 @@
         }
 
         .tab-btn.active {
-            background: linear-gradient(145deg, #1f5a2a 0%, #154b20 100%);
-            border-color: #2a6b33;
-            color: #e8f5e8;
-            box-shadow: 0 8px 25px rgba(31,90,42,0.4);
+            background: linear-gradient(145deg, #166534 0%, #14532d 100%);
+            border-color: #22c55e;
+            color: #dcfce7;
+            box-shadow: 0 8px 25px rgba(22,101,52,0.4);
             transform: translateY(-2px);
         }
 
         /* Desktop Headers */
         .time-header {
-            background: linear-gradient(135deg, #1a501e 0%, #0f3a19 100%);
+            background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%);
             color: #fff;
             padding: 28px 24px;
             font-weight: 900;
             text-align: center;
             font-size: 15px;
             text-shadow: 0 3px 12px rgba(0,0,0,0.9);
-            border-right: 4px solid #4a7c4d;
+            border-right: 4px solid #3b82f6;
             box-shadow: inset 0 2px 8px rgba(0,0,0,0.6);
         }
 
@@ -192,7 +189,7 @@
             text-align: center;
             font-size: 14px;
             text-shadow: 0 3px 12px rgba(0,0,0,0.9);
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.12);
             position: relative;
             overflow: hidden;
         }
@@ -204,7 +201,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
             transition: left 0.5s;
         }
 
@@ -213,44 +210,44 @@
         }
 
         .working-header { 
-            background: linear-gradient(135deg, #1f5a2a 0%, #154b20 50%, #0f3a19 100%);
-            color: #e8f5e8;
-            box-shadow: inset 0 4px 16px rgba(31,90,42,0.4);
-            border: 1px solid #2a6b33;
+            background: linear-gradient(135deg, #166534 0%, #14532d 50%, #0f4a17 100%);
+            color: #dcfce7;
+            box-shadow: inset 0 4px 16px rgba(22,101,52,0.4);
+            border: 1px solid #22c55e;
         }
 
         .holiday-header { 
-            background: linear-gradient(135deg, #7a2d91 0%, #5a1f6b 50%, #3d1448 100%);
-            color: #f8e8ff;
-            box-shadow: inset 0 4px 16px rgba(122,45,145,0.4);
-            border: 1px solid #8b3a9e;
+            background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 50%, #1e40af 100%);
+            color: #dbeafe;
+            box-shadow: inset 0 4px 16px rgba(30,58,138,0.4);
+            border: 1px solid #3b82f6;
         }
 
         .sunday-header { 
-            background: linear-gradient(135deg, #a83232 0%, #7a2424 50%, #5a1818 100%);
-            color: #ffd4d4;
-            box-shadow: inset 0 4px 16px rgba(168,50,50,0.4);
-            border: 1px solid #b83d3d;
+            background: linear-gradient(135deg, #1f2937 0%, #374151 50%, #4b5563 100%);
+            color: #f1f5f9;
+            box-shadow: inset 0 4px 16px rgba(31,41,55,0.5);
+            border: 1px solid #64748b;
         }
 
         .time-slot {
-            background: linear-gradient(145deg, #3d3d3d 0%, #2f2f2f 100%);
-            color: #e0e0e0;
+            background: linear-gradient(145deg, #475569 0%, #374151 100%);
+            color: #f1f5f9;
             padding: 24px 20px;
             font-weight: 900;
-            border-right: 4px solid #505050;
+            border-right: 4px solid #6b7280;
             text-align: center;
             font-size: 14px;
             box-shadow: inset 0 4px 16px rgba(0,0,0,0.6);
-            border-bottom: 1px solid #404040;
+            border-bottom: 1px solid #4a5568;
         }
 
         /* Activity Cell - Desktop */
         .schedule-grid .activity-cell {
             height: 84px;
             position: relative;
-            border: 2px solid #505050;
-            background: linear-gradient(145deg, rgba(50,50,50,0.9) 0%, rgba(35,35,35,0.9) 100%);
+            border: 2px solid #4a5568;
+            background: linear-gradient(145deg, rgba(31,41,55,0.95) 0%, rgba(17,24,39,0.95) 100%);
             cursor: text;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
@@ -260,7 +257,7 @@
             font-weight: 800;
             overflow: hidden;
             box-shadow: 0 8px 32px rgba(0,0,0,0.6);
-            color: #e0e0e0;
+            color: #e2e8f0;
             backdrop-filter: blur(10px);
         }
 
@@ -274,26 +271,26 @@
         }
 
         .section-title-mobile.working {
-            background: linear-gradient(135deg, #1f5a2a 0%, #154b20 50%, #0f3a19 100%);
-            color: #e8f5e8;
-            box-shadow: inset 0 4px 16px rgba(31,90,42,0.4);
-            border-bottom: 2px solid #2a6b33;
+            background: linear-gradient(135deg, #166534 0%, #14532d 50%, #0f4a17 100%);
+            color: #dcfce7;
+            box-shadow: inset 0 4px 16px rgba(22,101,52,0.4);
+            border-bottom: 2px solid #22c55e;
             border-radius: 20px 20px 0 0;
         }
 
         .section-title-mobile.holiday {
-            background: linear-gradient(135deg, #7a2d91 0%, #5a1f6b 50%, #3d1448 100%);
-            color: #f8e8ff;
-            box-shadow: inset 0 4px 16px rgba(122,45,145,0.4);
-            border-bottom: 2px solid #8b3a9e;
+            background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 50%, #1e40af 100%);
+            color: #dbeafe;
+            box-shadow: inset 0 4px 16px rgba(30,58,138,0.4);
+            border-bottom: 2px solid #3b82f6;
             border-radius: 20px 20px 0 0;
         }
 
         .section-title-mobile.sunday {
-            background: linear-gradient(135deg, #a83232 0%, #7a2424 50%, #5a1818 100%);
-            color: #ffd4d4;
-            box-shadow: inset 0 4px 16px rgba(168,50,50,0.4);
-            border-bottom: 2px solid #b83d3d;
+            background: linear-gradient(135deg, #1f2937 0%, #374151 50%, #4b5563 100%);
+            color: #f1f5f9;
+            box-shadow: inset 0 4px 16px rgba(31,41,55,0.5);
+            border-bottom: 2px solid #64748b;
             border-radius: 20px 20px 0 0;
         }
 
@@ -302,19 +299,19 @@
             display: flex;
             flex-direction: column;
             gap: 0;
-            background: linear-gradient(145deg, #3a3a3a 0%, #2a2a2a 100%);
+            background: linear-gradient(145deg, #2d3748 0%, #1a202c 100%);
             border-radius: 0 0 20px 20px;
             overflow: hidden;
-            border: 2px solid #505050;
-            box-shadow: inset 0 4px 20px rgba(0,0,0,0.3);
+            border: 2px solid #4a5568;
+            box-shadow: inset 0 4px 20px rgba(0,0,0,0.4);
         }
 
         .timeline-item {
             display: flex;
             align-items: center;
             padding: 20px 24px;
-            border-bottom: 1px solid #404040;
-            background: linear-gradient(145deg, rgba(50,50,50,0.9) 0%, rgba(35,35,35,0.9) 100%);
+            border-bottom: 1px solid #4a5568;
+            background: linear-gradient(145deg, rgba(31,41,55,0.95) 0%, rgba(17,24,39,0.95) 100%);
             transition: all 0.3s ease;
         }
 
@@ -323,7 +320,7 @@
         }
 
         .timeline-item:hover {
-            background: linear-gradient(145deg, rgba(70,70,70,0.95) 0%, rgba(50,50,50,0.95) 100%);
+            background: linear-gradient(145deg, rgba(51,65,85,0.95) 0%, rgba(30,41,59,0.95) 100%);
             transform: translateX(5px);
         }
 
@@ -333,11 +330,11 @@
             color: #fff;
             min-width: 90px;
             text-align: center;
-            background: linear-gradient(135deg, #1a501e 0%, #0f3a19 100%);
+            background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%);
             padding: 12px 16px;
             border-radius: 12px;
-            box-shadow: 0 4px 16px rgba(0,80,25,0.4);
-            border-right: 4px solid #4a7c4d;
+            box-shadow: 0 4px 16px rgba(30,64,175,0.4);
+            border-right: 4px solid #3b82f6;
             margin-right: 20px;
         }
 
@@ -346,8 +343,8 @@
             flex: 1;
             height: 60px;
             position: relative;
-            border: 2px solid #505050;
-            background: linear-gradient(145deg, rgba(50,50,50,0.9) 0%, rgba(35,35,35,0.9) 100%);
+            border: 2px solid #4a5568;
+            background: linear-gradient(145deg, rgba(31,41,55,0.95) 0%, rgba(17,24,39,0.95) 100%);
             cursor: text;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
@@ -355,24 +352,24 @@
             padding: 0 20px;
             font-size: 15px;
             font-weight: 800;
-            color: #e0e0e0;
+            color: #e2e8f0;
             backdrop-filter: blur(10px);
             overflow: hidden;
             box-shadow: 0 8px 32px rgba(0,0,0,0.6);
         }
 
         .activity-cell:hover {
-            background: linear-gradient(145deg, rgba(70,70,70,0.95) 0%, rgba(50,50,50,0.95) 100%);
-            border-color: #707070;
+            background: linear-gradient(145deg, rgba(51,65,85,0.95) 0%, rgba(30,41,59,0.95) 100%);
+            border-color: #6b7280;
             box-shadow: 0 20px 60px rgba(0,0,0,0.8);
             transform: translateY(-3px);
         }
 
         .activity-cell:focus-within {
             outline: none;
-            background: linear-gradient(145deg, #555 0%, #444 100%);
-            border-color: #00aa00;
-            box-shadow: 0 0 0 4px rgba(0,170,0,0.3), 0 30px 80px rgba(0,0,0,0.9);
+            background: linear-gradient(145deg, #475569 0%, #374151 100%);
+            border-color: #22c55e;
+            box-shadow: 0 0 0 4px rgba(34,197,94,0.3), 0 30px 80px rgba(0,0,0,0.9);
             transform: translateY(-6px) scale(1.02);
             z-index: 10;
         }
@@ -381,7 +378,7 @@
             width: 100%;
             background: transparent;
             border: none;
-            color: #f0f0f0;
+            color: #f1f5f9;
             font-family: inherit;
             font-size: 15px;
             font-weight: 800;
@@ -393,14 +390,14 @@
         }
 
         .activity-input::placeholder {
-            color: rgba(200,200,200,0.5);
+            color: rgba(148,163,184,0.6);
             font-weight: 700;
         }
 
         .activity-input:focus {
             outline: none;
             color: #fff;
-            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+            text-shadow: 0 0 10px rgba(255,255,255,0.4);
         }
 
         .controls {
@@ -408,16 +405,16 @@
             gap: 20px;
             justify-content: center;
             padding: 40px;
-            background: linear-gradient(145deg, #2a2a2a 0%, #1f1f1f 100%);
-            border-top: 1px solid #404040;
+            background: linear-gradient(145deg, #1e293b 0%, #151f30 100%);
+            border-top: 1px solid #334155;
             flex-wrap: wrap;
         }
 
         .btn {
             padding: 16px 32px;
-            border: 3px solid #606060;
-            background: linear-gradient(145deg, #404040 0%, #303030 100%);
-            color: #e0e0e0;
+            border: 3px solid #475569;
+            background: linear-gradient(145deg, #374151 0%, #1f2937 100%);
+            color: #e2e8f0;
             border-radius: 24px;
             font-weight: 800;
             font-size: 15px;
@@ -445,8 +442,8 @@
         .btn:hover {
             transform: translateY(-5px);
             box-shadow: 0 25px 70px rgba(0,0,0,0.8);
-            border-color: #80c080;
-            background: linear-gradient(145deg, #505050 0%, #404040 100%);
+            border-color: #22c55e;
+            background: linear-gradient(145deg, #4b5563 0%, #374151 100%);
             color: #fff;
         }
 
@@ -455,13 +452,13 @@
         }
 
         .btn-reset {
-            background: linear-gradient(145deg, #606060 0%, #505050 100%);
-            border-color: #707070;
+            background: linear-gradient(145deg, #4b5563 0%, #374151 100%);
+            border-color: #6b7280;
         }
 
         .btn-reset:hover {
-            border-color: #ff8080;
-            background: linear-gradient(145deg, #707070 0%, #606060 100%);
+            border-color: #f1f5f9;
+            background: linear-gradient(145deg, #6b7280 0%, #4b5563 100%);
         }
 
         @media (max-width: 768px) {
@@ -495,7 +492,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1> Mighty legnA's activity</h1>
+            <h1>🌙 Mighty legnA's activity</h1>
             <div class="current-date" id="currentDate"></div>
             <div class="stats">
                 <div class="stat-item" id="workingStats">0</div>
@@ -508,8 +505,8 @@
         <div class="mobile-tabs">
             <div class="tab-buttons">
                 <button class="tab-btn active" data-tab="0">🟢 Working</button>
-                <button class="tab-btn" data-tab="1">🌸 Holiday</button>
-                <button class="tab-btn" data-tab="2">🔴 Sunday</button>
+                <button class="tab-btn" data-tab="1">🔵 Holiday</button>
+                <button class="tab-btn" data-tab="2">⚫ Sunday</button>
             </div>
         </div>
 
@@ -522,11 +519,11 @@
             <div class="mobile-timeline" id="mobileTimeline0"></div>
         </div>
         <div id="tab1" class="tab-content">
-            <div class="section-title-mobile holiday">Holidays 🌸</div>
+            <div class="section-title-mobile holiday">Holidays 🔵</div>
             <div class="mobile-timeline" id="mobileTimeline1"></div>
         </div>
         <div id="tab2" class="tab-content">
-            <div class="section-title-mobile sunday">Sunday 🔴</div>
+            <div class="section-title-mobile sunday">Sunday ⚫</div>
             <div class="mobile-timeline" id="mobileTimeline2"></div>
         </div>
 
@@ -543,7 +540,7 @@
             '4-5 PM', '5-6 PM', '6-7 PM', '7-8 PM', '8-9 PM', '9-10 PM', '10-11 PM'
         ];
         
-        const sections = ['Working Days 🟢', 'Holidays 🌸', 'Sunday 🔴'];
+        const sections = ['Working Days 🟢', 'Holidays 🔵', 'Sunday ⚫'];
         let todayData = JSON.parse(localStorage.getItem('dark_triple_activities')) || {};
         let currentDateStr = '';
 
@@ -732,4 +729,3 @@
     </script>
 </body>
 </html>
-
