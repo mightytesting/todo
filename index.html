@@ -163,10 +163,10 @@
         }
 
         .tab-btn.active {
-            background: linear-gradient(145deg, #166534 0%, #14532d 100%);
-            border-color: #22c55e;
-            color: #dcfce7;
-            box-shadow: 0 8px 25px rgba(22,101,52,0.4);
+            background: linear-gradient(145deg, #be185d 0%, #9d174d 100%);
+            border-color: #ec4899;
+            color: #fce7f3;
+            box-shadow: 0 8px 25px rgba(190,24,93,0.4);
             transform: translateY(-2px);
         }
 
@@ -210,10 +210,10 @@
         }
 
         .working-header { 
-            background: linear-gradient(135deg, #166534 0%, #14532d 50%, #0f4a17 100%);
-            color: #dcfce7;
-            box-shadow: inset 0 4px 16px rgba(22,101,52,0.4);
-            border: 1px solid #22c55e;
+            background: linear-gradient(135deg, #be185d 0%, #9d174d 50%, #831843 100%);
+            color: #fce7f3;
+            box-shadow: inset 0 4px 16px rgba(190,24,93,0.4);
+            border: 1px solid #ec4899;
         }
 
         .holiday-header { 
@@ -271,10 +271,10 @@
         }
 
         .section-title-mobile.working {
-            background: linear-gradient(135deg, #166534 0%, #14532d 50%, #0f4a17 100%);
-            color: #dcfce7;
-            box-shadow: inset 0 4px 16px rgba(22,101,52,0.4);
-            border-bottom: 2px solid #22c55e;
+            background: linear-gradient(135deg, #be185d 0%, #9d174d 50%, #831843 100%);
+            color: #fce7f3;
+            box-shadow: inset 0 4px 16px rgba(190,24,93,0.4);
+            border-bottom: 2px solid #ec4899;
             border-radius: 20px 20px 0 0;
         }
 
@@ -294,7 +294,7 @@
             border-radius: 20px 20px 0 0;
         }
 
-        /* Mobile Timeline */
+        /* Mobile Timeline - MORE WRITING SPACE */
         .mobile-timeline {
             display: flex;
             flex-direction: column;
@@ -309,7 +309,7 @@
         .timeline-item {
             display: flex;
             align-items: center;
-            padding: 20px 24px;
+            padding: 24px 28px; /* INCREASED PADDING */
             border-bottom: 1px solid #4a5568;
             background: linear-gradient(145deg, rgba(31,41,55,0.95) 0%, rgba(17,24,39,0.95) 100%);
             transition: all 0.3s ease;
@@ -338,10 +338,10 @@
             margin-right: 20px;
         }
 
-        /* Shared Activity Cell Styles */
+        /* Shared Activity Cell Styles - MORE SPACE ON MOBILE */
         .activity-cell {
             flex: 1;
-            height: 60px;
+            height: 80px; /* INCREASED HEIGHT FROM 60px */
             position: relative;
             border: 2px solid #4a5568;
             background: linear-gradient(145deg, rgba(31,41,55,0.95) 0%, rgba(17,24,39,0.95) 100%);
@@ -349,8 +349,8 @@
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             align-items: center;
-            padding: 0 20px;
-            font-size: 15px;
+            padding: 0 24px; /* MORE HORIZONTAL PADDING */
+            font-size: 16px; /* SLIGHTLY LARGER FONT */
             font-weight: 800;
             color: #e2e8f0;
             backdrop-filter: blur(10px);
@@ -368,8 +368,8 @@
         .activity-cell:focus-within {
             outline: none;
             background: linear-gradient(145deg, #475569 0%, #374151 100%);
-            border-color: #22c55e;
-            box-shadow: 0 0 0 4px rgba(34,197,94,0.3), 0 30px 80px rgba(0,0,0,0.9);
+            border-color: #ec4899; /* PINK FOCUS */
+            box-shadow: 0 0 0 4px rgba(236,72,153,0.3), 0 30px 80px rgba(0,0,0,0.9);
             transform: translateY(-6px) scale(1.02);
             z-index: 10;
         }
@@ -380,12 +380,13 @@
             border: none;
             color: #f1f5f9;
             font-family: inherit;
-            font-size: 15px;
+            font-size: 16px; /* LARGER FONT FOR BETTER TYPING */
             font-weight: 800;
             text-align: left;
             resize: none;
             height: 100%;
-            padding: 4px;
+            padding: 8px; /* MORE INPUT PADDING */
+            line-height: 1.4; /* BETTER LINE HEIGHT */
             text-shadow: 0 1px 2px rgba(0,0,0,0.8);
         }
 
@@ -442,7 +443,7 @@
         .btn:hover {
             transform: translateY(-5px);
             box-shadow: 0 25px 70px rgba(0,0,0,0.8);
-            border-color: #22c55e;
+            border-color: #ec4899; /* PINK HOVER */
             background: linear-gradient(145deg, #4b5563 0%, #374151 100%);
             color: #fff;
         }
@@ -468,11 +469,14 @@
                 padding: 10px 12px;
             }
             
-            .timeline-item { padding: 16px 20px; }
+            .timeline-item { 
+                padding: 20px 24px; /* MORE SPACE */
+            }
+            
             .activity-cell {
-                height: 52px;
-                padding: 0 16px;
-                font-size: 14px;
+                height: 72px; /* EVEN MORE SPACE ON MOBILE */
+                padding: 0 20px;
+                font-size: 15px;
             }
             
             .controls { 
@@ -504,7 +508,7 @@
         <!-- Mobile Tab Switcher -->
         <div class="mobile-tabs">
             <div class="tab-buttons">
-                <button class="tab-btn active" data-tab="0">🟢 Working</button>
+                <button class="tab-btn active" data-tab="0">💗 Working</button>
                 <button class="tab-btn" data-tab="1">🔵 Holiday</button>
                 <button class="tab-btn" data-tab="2">⚫ Sunday</button>
             </div>
@@ -515,7 +519,7 @@
 
         <!-- Mobile Tab Contents -->
         <div id="tab0" class="tab-content active">
-            <div class="section-title-mobile working">Working Days 🟢</div>
+            <div class="section-title-mobile working">Working Days 💗</div>
             <div class="mobile-timeline" id="mobileTimeline0"></div>
         </div>
         <div id="tab1" class="tab-content">
@@ -533,6 +537,7 @@
         </div>
     </div>
 
+    <!-- SAME JAVASCRIPT - NO CHANGES NEEDED -->
     <script>
         const timeSlots = [
             '4-5 AM', '5-6 AM', '6-7 AM', '7-8 AM', '8-9 AM', '9-10 AM', 
@@ -540,7 +545,7 @@
             '4-5 PM', '5-6 PM', '6-7 PM', '7-8 PM', '8-9 PM', '9-10 PM', '10-11 PM'
         ];
         
-        const sections = ['Working Days 🟢', 'Holidays 🔵', 'Sunday ⚫'];
+        const sections = ['Working Days 💗', 'Holidays 🔵', 'Sunday ⚫'];
         let todayData = JSON.parse(localStorage.getItem('dark_triple_activities')) || {};
         let currentDateStr = '';
 
@@ -607,7 +612,6 @@
             
             grid.innerHTML = '';
 
-            // Headers
             const timeHeader = document.createElement('div');
             timeHeader.className = 'time-header';
             timeHeader.textContent = 'Time';
@@ -620,7 +624,6 @@
                 grid.appendChild(header);
             });
 
-            // Time slots
             timeSlots.forEach(time => {
                 const timeCell = document.createElement('div');
                 timeCell.className = 'time-slot';
@@ -694,7 +697,6 @@
             updateStats();
         }
 
-        // PERFECT MOBILE TAB SWITCHING
         document.addEventListener('DOMContentLoaded', function() {
             const tabButtons = document.querySelectorAll('.tab-btn');
             const tabContents = document.querySelectorAll('.tab-content');
@@ -703,20 +705,16 @@
                 btn.addEventListener('click', function() {
                     const tabIndex = parseInt(this.dataset.tab);
                     
-                    // Update active tab button
                     tabButtons.forEach(b => b.classList.remove('active'));
                     this.classList.add('active');
                     
-                    // Hide all tab contents first
                     tabContents.forEach(content => {
                         content.classList.remove('active');
                     });
                     
-                    // Show only selected tab content
                     const activeTab = document.getElementById(`tab${tabIndex}`);
                     activeTab.classList.add('active');
                     
-                    // Refresh timeline for active tab
                     createMobileTimeline(`mobileTimeline${tabIndex}`, tabIndex);
                 });
             });
