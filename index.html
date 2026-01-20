@@ -25,6 +25,7 @@ h1{text-align:center}
   background:#1f2937
 }
 .time{background:#334155;font-weight:700;text-align:center}
+.section{background:#475569;font-weight:700;text-align:center}
 textarea{
   width:100%;
   min-height:70px;
@@ -33,13 +34,13 @@ textarea{
   border:none;
   resize:vertical
 }
-.section{background:#475569;font-weight:700;text-align:center}
 .food{grid-column:span 3}
 </style>
 </head>
 
 <body>
-<h1 id="date"></h1>
+
+<h1 id="dateTitle">Loading…</h1>
 
 <h2>Activities</h2>
 <div class="grid" id="activityGrid"></div>
@@ -61,7 +62,6 @@ const app = initializeApp({
   messagingSenderId: "1031984794235",
   appId: "1:1031984794235:web:3dba6a11ac44dbd4c770de"
 });
-
 const db = getDatabase(app);
 
 /* ---------- CONFIG ---------- */
@@ -72,14 +72,37 @@ const timeSlots = [
 ];
 const sections = ['Working','Holiday','Sunday'];
 
-const today = new Date().toISOString().split('T')[0];
-document.getElementById('date').textContent = today;
-
+let activeDate = '';
 let activities = {};
 let foods = {};
 
+/* ---------- LOCAL DATE (NOT UTC) ---------- */
+function getLocalDate() {
+  const d = new Date();
+  const y = d.getFullYear();
+  const m = String(d.getMonth()+1).padStart(2,'0');
+  const day = String(d.getDate()).padStart(2,'0');
+  return `${y}-${m}-${day}`;
+}
+
+/* ---------- FIND LATEST DATE IN DB ---------- */
+async function detectDate() {
+  const snap = await get(ref(db,'activities'));
+  if (!snap.exists()) return getLocalDate();
+
+  const dates = Object.keys(snap.val())
+    .map(k => k.split('_')[0])
+    .sort()
+    .reverse();
+
+  return dates[0];
+}
+
 /* ---------- LOAD DATA ---------- */
-async function loadData(){
+async function loadData() {
+  activeDate = await detectDate();
+  document.getElementById('dateTitle').textContent = activeDate;
+
   const actSnap = await get(ref(db,'activities'));
   const foodSnap = await get(ref(db,'foods'));
 
@@ -88,17 +111,16 @@ async function loadData(){
 
   if (actSnap.exists()) {
     Object.entries(actSnap.val()).forEach(([k,v])=>{
-      if (k.startsWith(today+'_')) {
-        const clean = k.replace(today+'_','');
-        activities[clean] = v;
+      if (k.startsWith(activeDate+'_')) {
+        activities[k.replace(activeDate+'_','')] = v;
       }
     });
   }
 
   if (foodSnap.exists()) {
     Object.entries(foodSnap.val()).forEach(([k,v])=>{
-      if (k.startsWith(today+'_')) {
-        foods[k.replace(today+'_','')] = v;
+      if (k.startsWith(activeDate+'_')) {
+        foods[k.replace(activeDate+'_','')] = v;
       }
     });
   }
@@ -109,53 +131,46 @@ async function loadData(){
 
 /* ---------- DRAW ---------- */
 function drawActivities(){
-  const g = document.getElementById('activityGrid');
+  const g=document.getElementById('activityGrid');
   g.innerHTML='';
-
   g.append(cell('Time','time'));
   sections.forEach(s=>g.append(cell(s,'section')));
 
   timeSlots.forEach(time=>{
     g.append(cell(time,'time'));
     sections.forEach((_,i)=>{
-      const key = `${i}_${time}`;
-      const ta = document.createElement('textarea');
-      if (activities[key]) ta.value = activities[key];
-      ta.onblur = ()=>saveActivity(i,time,ta.value);
+      const key=`${i}_${time}`;
+      const ta=document.createElement('textarea');
+      if(activities[key]) ta.value=activities[key];
+      ta.onblur=()=>saveActivity(i,time,ta.value);
       g.append(wrap(ta));
     });
   });
 }
 
 function drawFoods(){
-  const g = document.getElementById('foodGrid');
+  const g=document.getElementById('foodGrid');
   g.innerHTML='';
-
   g.append(cell('Time','time'));
   g.append(cell('Foods 🍱','section food'));
 
   timeSlots.forEach(time=>{
     g.append(cell(time,'time'));
     const ta=document.createElement('textarea');
-    if (foods[time]) ta.value = foods[time];
-    ta.onblur = ()=>saveFood(time,ta.value);
+    if(foods[time]) ta.value=foods[time];
+    ta.onblur=()=>saveFood(time,ta.value);
     g.append(wrap(ta,'food'));
   });
 }
 
 /* ---------- SAVE ---------- */
 function saveActivity(sec,time,val){
-  const key = `${today}_${sec}_${time}`;
-  if (val.trim()) {
-    set(ref(db,'activities/'+key),val.trim());
-  }
+  if(!val.trim()) return;
+  set(ref(db,`activities/${activeDate}_${sec}_${time}`),val.trim());
 }
-
 function saveFood(time,val){
-  const key = `${today}_${time}`;
-  if (val.trim()) {
-    set(ref(db,'foods/'+key),val.trim());
-  }
+  if(!val.trim()) return;
+  set(ref(db,`foods/${activeDate}_${time}`),val.trim());
 }
 
 /* ---------- HELPERS ---------- */
