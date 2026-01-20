@@ -1,87 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Mighty's what to do & eat</title>
+<meta charset="UTF-8">
+<title>Mighty Activity & Food</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- ===== STYLES (UNCHANGED UI) ===== -->
 <style>
-/* ⚠️ Your full CSS is unchanged for stability */
-*{margin:0;padding:0;box-sizing:border-box}
 body{
-  font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;
-  background:linear-gradient(145deg,#0f1419,#1a1f2e);
-  min-height:100vh;padding:10px;color:#e2e8f0
+  background:#0f172a;
+  color:#e5e7eb;
+  font-family:system-ui,sans-serif;
+  margin:0;padding:20px
 }
-.container{
-  max-width:1400px;margin:auto;
-  background:linear-gradient(145deg,#1e293b,#151f30);
-  border-radius:24px;overflow:hidden;
-  border:1px solid #334155
-}
-.header{
-  background:linear-gradient(135deg,#1e3a8a,#2d4a9f,#1e40af);
-  padding:25px 15px;text-align:center;color:#fff
-}
-.header h1{font-size:1.8rem;font-weight:800}
-.current-date{font-size:14px;margin:10px 0}
-.stats{display:flex;justify-content:center;gap:10px}
-.stat-item{
-  background:rgba(255,255,255,.1);
-  padding:6px 14px;border-radius:12px;font-weight:700
-}
-.schedule-grid{
+h1{text-align:center}
+.grid{
   display:grid;
-  grid-template-columns:140px 1fr 1fr 1fr;
-  margin:20px;border-radius:16px;overflow:hidden
+  grid-template-columns:120px 1fr 1fr 1fr;
+  gap:2px;
+  margin-top:20px
 }
-.time-header,.section-header,.time-slot{
-  padding:14px;text-align:center;font-weight:800
+.cell{
+  border:1px solid #334155;
+  padding:8px;
+  background:#1f2937
 }
-.time-header{background:#1d4ed8}
-.section-header{background:#334155}
-.time-slot{background:#475569}
-.activity-cell{
-  border:1px solid #475569;
-  padding:10px;background:#1f2937
+.time{background:#334155;font-weight:700;text-align:center}
+textarea{
+  width:100%;
+  min-height:70px;
+  background:transparent;
+  color:#f8fafc;
+  border:none;
+  resize:vertical
 }
-.activity-input{
-  width:100%;background:none;border:none;
-  color:#f1f5f9;resize:vertical;min-height:80px
-}
-.mobile-tabs,.tab-content{display:none}
-@media(max-width:768px){
-  .schedule-grid{display:none}
-  .mobile-tabs{display:block}
-  .tab-content.active{display:block}
-}
+.section{background:#475569;font-weight:700;text-align:center}
+.food{grid-column:span 3}
 </style>
 </head>
 
 <body>
-<div class="container">
-  <div class="header">
-    <h1>🌙 Mighty legnA's activity & food</h1>
-    <div id="currentDate" class="current-date"></div>
-    <div class="stats">
-      <div class="stat-item" id="workingStats">0</div>
-      <div class="stat-item" id="holidayStats">0</div>
-      <div class="stat-item" id="sundayStats">0</div>
-      <div class="stat-item" id="foodStats">0</div>
-    </div>
-  </div>
+<h1 id="date"></h1>
 
-  <div class="schedule-grid" id="scheduleGrid"></div>
-  <div class="schedule-grid" id="foodGrid"></div>
-</div>
+<h2>Activities</h2>
+<div class="grid" id="activityGrid"></div>
 
-<!-- ===== FIREBASE ===== -->
+<h2>Foods</h2>
+<div class="grid" id="foodGrid"></div>
+
 <script type="module">
+/* ---------- FIREBASE ---------- */
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-const firebaseConfig = {
+const app = initializeApp({
   apiKey: "AIzaSyCGckwVoIWxLnIWPFS6z2hfKBB_pM7SW9k",
   authDomain: "todo-d025d.firebaseapp.com",
   databaseURL: "https://todo-d025d-default-rtdb.firebaseio.com",
@@ -89,132 +60,120 @@ const firebaseConfig = {
   storageBucket: "todo-d025d.appspot.com",
   messagingSenderId: "1031984794235",
   appId: "1:1031984794235:web:3dba6a11ac44dbd4c770de"
-};
+});
 
-const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-window.db = db;
-window.dbRef = ref;
-window.dbGet = get;
-window.dbSet = set;
-</script>
-
-<!-- ===== APP LOGIC ===== -->
-<script>
+/* ---------- CONFIG ---------- */
 const timeSlots = [
  '4-5 AM','5-6 AM','6-7 AM','7-8 AM','8-9 AM','9-10 AM',
  '10-11 AM','11-12 PM','12-1 PM','1-2 PM','2-3 PM','3-4 PM',
  '4-5 PM','5-6 PM','6-7 PM','7-8 PM','8-9 PM','9-10 PM','10-11 PM'
 ];
+const sections = ['Working','Holiday','Sunday'];
 
-const sections = ['Working 💗','Holiday 🔵','Sunday ⚫'];
-let todayKey = '';
+const today = new Date().toISOString().split('T')[0];
+document.getElementById('date').textContent = today;
+
 let activities = {};
 let foods = {};
 
-// ----- DATE -----
-function setDate(){
-  const d=new Date();
-  todayKey=d.toISOString().split('T')[0];
-  document.getElementById('currentDate').textContent =
-    d.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+/* ---------- LOAD DATA ---------- */
+async function loadData(){
+  const actSnap = await get(ref(db,'activities'));
+  const foodSnap = await get(ref(db,'foods'));
+
+  activities = {};
+  foods = {};
+
+  if (actSnap.exists()) {
+    Object.entries(actSnap.val()).forEach(([k,v])=>{
+      if (k.startsWith(today+'_')) {
+        const clean = k.replace(today+'_','');
+        activities[clean] = v;
+      }
+    });
+  }
+
+  if (foodSnap.exists()) {
+    Object.entries(foodSnap.val()).forEach(([k,v])=>{
+      if (k.startsWith(today+'_')) {
+        foods[k.replace(today+'_','')] = v;
+      }
+    });
+  }
+
+  drawActivities();
+  drawFoods();
 }
 
-// ----- INPUTS -----
-function activityInput(sec,time){
-  const t=document.createElement('textarea');
-  const key=`${sec}_${time}`;
-  t.className='activity-input';
-  if(activities[key]) t.value=activities[key];
-  t.onblur=()=>saveActivity(sec,time,t.value);
-  return t;
-}
-
-function foodInput(time){
-  const t=document.createElement('textarea');
-  t.className='activity-input';
-  if(foods[time]) t.value=foods[time];
-  t.onblur=()=>saveFood(time,t.value);
-  return t;
-}
-
-// ----- GRIDS -----
-function buildActivityGrid(){
-  const g=document.getElementById('scheduleGrid');
+/* ---------- DRAW ---------- */
+function drawActivities(){
+  const g = document.getElementById('activityGrid');
   g.innerHTML='';
-  g.append(div('time-header','Time'));
-  sections.forEach(s=>g.append(div('section-header',s)));
+
+  g.append(cell('Time','time'));
+  sections.forEach(s=>g.append(cell(s,'section')));
+
   timeSlots.forEach(time=>{
-    g.append(div('time-slot',time));
+    g.append(cell(time,'time'));
     sections.forEach((_,i)=>{
-      const c=div('activity-cell');
-      c.append(activityInput(i,time));
-      g.append(c);
+      const key = `${i}_${time}`;
+      const ta = document.createElement('textarea');
+      if (activities[key]) ta.value = activities[key];
+      ta.onblur = ()=>saveActivity(i,time,ta.value);
+      g.append(wrap(ta));
     });
   });
 }
 
-function buildFoodGrid(){
-  const g=document.getElementById('foodGrid');
+function drawFoods(){
+  const g = document.getElementById('foodGrid');
   g.innerHTML='';
-  g.append(div('time-header','Time'));
-  const h=div('section-header','Foods 🍱');
-  h.style.gridColumn='span 3';
-  g.append(h);
+
+  g.append(cell('Time','time'));
+  g.append(cell('Foods 🍱','section food'));
+
   timeSlots.forEach(time=>{
-    g.append(div('time-slot',time));
-    const c=div('activity-cell');
-    c.style.gridColumn='span 3';
-    c.append(foodInput(time));
-    g.append(c);
+    g.append(cell(time,'time'));
+    const ta=document.createElement('textarea');
+    if (foods[time]) ta.value = foods[time];
+    ta.onblur = ()=>saveFood(time,ta.value);
+    g.append(wrap(ta,'food'));
   });
 }
 
-function div(cls,txt=''){
-  const d=document.createElement('div');
-  d.className=cls;
-  d.textContent=txt;
-  return d;
-}
-
-// ----- SAVE -----
+/* ---------- SAVE ---------- */
 function saveActivity(sec,time,val){
-  const key=`${sec}_${time}`;
-  val.trim()?activities[key]=val.trim():delete activities[key];
-  dbSet(dbRef(db,'activities/'+todayKey),activities);
-  stats();
+  const key = `${today}_${sec}_${time}`;
+  if (val.trim()) {
+    set(ref(db,'activities/'+key),val.trim());
+  }
 }
 
 function saveFood(time,val){
-  val.trim()?foods[time]=val.trim():delete foods[time];
-  dbSet(dbRef(db,'foods/'+todayKey),foods);
-  stats();
+  const key = `${today}_${time}`;
+  if (val.trim()) {
+    set(ref(db,'foods/'+key),val.trim());
+  }
 }
 
-// ----- LOAD -----
-async function loadData(){
-  setDate();
-  const a=await dbGet(dbRef(db,'activities/'+todayKey));
-  const f=await dbGet(dbRef(db,'foods/'+todayKey));
-  activities=a.exists()?a.val():{};
-  foods=f.exists()?f.val():{};
-  buildActivityGrid();
-  buildFoodGrid();
-  stats();
+/* ---------- HELPERS ---------- */
+function cell(txt,cls){
+  const d=document.createElement('div');
+  d.className='cell '+(cls||'');
+  d.textContent=txt;
+  return d;
+}
+function wrap(el,cls){
+  const d=document.createElement('div');
+  d.className='cell '+(cls||'');
+  d.append(el);
+  return d;
 }
 
-// ----- STATS -----
-function stats(){
-  const c=[0,0,0];
-  Object.keys(activities).forEach(k=>c[k[0]]++);
-  document.getElementById('workingStats').textContent=c[0];
-  document.getElementById('holidayStats').textContent=c[1];
-  document.getElementById('sundayStats').textContent=c[2];
-  document.getElementById('foodStats').textContent=Object.keys(foods).length;
-}
-
-window.onload=loadData;
+/* ---------- INIT ---------- */
+loadData();
 </script>
 </body>
 </html>
