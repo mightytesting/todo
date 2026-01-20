@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mighty's what to do & eat - FIXED DATA DISPLAY</title>
+<title>Mighty's what to do & eat - PERMANENT FIREBASE DATA ✅</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
@@ -19,8 +19,8 @@ border: 1px solid #334155; overflow: hidden;
 }
 .header {
 background: linear-gradient(135deg, #1e3a8a 0%, #2d4a9f 50%, #1e40af 100%);
-padding: 25px 15px; text-align: center; color: #fff; position: relative;
-box-shadow: 0 8px 32px rgba(30,58,138,0.6);
+padding: 25px 15px; text-align: center; color: #fff;
+position: relative; box-shadow: 0 8px 32px rgba(30,58,138,0.6);
 }
 .header::before {
 content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
@@ -34,9 +34,7 @@ background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
 -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
 .current-date { font-size: 14px; font-weight: 600; margin-bottom: 12px; opacity: 0.95; color: #f1f5f9; }
-.stats {
-display: flex; justify-content: center; gap: 12px; font-size: 13px; font-weight: 700; flex-wrap: wrap;
-}
+.stats { display: flex; justify-content: center; gap: 12px; font-size: 13px; font-weight: 700; flex-wrap: wrap; }
 .stat-item {
 background: linear-gradient(145deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.06) 100%);
 padding: 8px 16px; border-radius: 16px; backdrop-filter: blur(20px);
@@ -129,8 +127,9 @@ border-radius: 16px 16px 0 0;
 }
 .mobile-timeline {
 display: flex; flex-direction: column; gap: 0;
-background: linear-gradient(145deg, #2d3748 0%, #1a202c 100%); border-radius: 0 0 16px 16px;
-overflow: hidden; border: 2px solid #4a5568; box-shadow: inset 0 4px 20px rgba(0,0,0,0.4);
+background: linear-gradient(145deg, #2d3748 0%, #1a202c 100%);
+border-radius: 0 0 16px 16px; overflow: hidden; border: 2px solid #4a5568;
+box-shadow: inset 0 4px 20px rgba(0,0,0,0.4);
 }
 .timeline-item {
 display: flex; align-items: flex-start; padding: 12px 12px; border-bottom: 1px solid #4a5568;
@@ -150,16 +149,16 @@ margin-right: 12px; margin-top: 4px;
 flex: 1; min-height: 120px; position: relative; border: 2px solid #4a5568;
 background: linear-gradient(145deg, rgba(31,41,55,0.95) 0%, rgba(17,24,39,0.95) 100%);
 cursor: text; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column;
-padding: 12px 16px; font-size: 13px; font-weight: 500; color: #e2e8f0; backdrop-filter: blur(10px);
-overflow: auto; box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+padding: 12px 16px; font-size: 13px; font-weight: 500; color: #e2e8f0;
+backdrop-filter: blur(10px); overflow: auto; box-shadow: 0 8px 32px rgba(0,0,0,0.6);
 }
 .activity-cell:hover {
 background: linear-gradient(145deg, rgba(51,65,85,0.95) 0%, rgba(30,41,59,0.95) 100%);
 border-color: #6b7280; box-shadow: 0 20px 60px rgba(0,0,0,0.8); transform: translateY(-2px);
 }
 .activity-cell:focus-within {
-outline: none; background: linear-gradient(145deg, #475569 0%, #374151 100%); border-color: #ec4899;
-box-shadow: 0 0 0 3px rgba(236,72,153,0.3), 0 30px 80px rgba(0,0,0,0.9);
+outline: none; background: linear-gradient(145deg, #475569 0%, #374151 100%);
+border-color: #ec4899; box-shadow: 0 0 0 3px rgba(236,72,153,0.3), 0 30px 80px rgba(0,0,0,0.9);
 transform: translateY(-4px) scale(1.01); z-index: 10;
 }
 .activity-input {
@@ -172,7 +171,8 @@ text-shadow: 0 1px 2px rgba(0,0,0,0.8); overflow-wrap: break-word; word-break: b
 .activity-input:focus { outline: none; color: #fff; text-shadow: 0 0 8px rgba(255,255,255,0.4); }
 .controls {
 display: flex; gap: 15px; justify-content: center; padding: 25px 15px;
-background: linear-gradient(145deg, #1e293b 0%, #151f30 100%); border-top: 1px solid #334155; flex-wrap: wrap;
+background: linear-gradient(145deg, #1e293b 0%, #151f30 100%); border-top: 1px solid #334155;
+flex-wrap: wrap;
 }
 .btn {
 padding: 12px 24px; border: 3px solid #475569;
@@ -187,10 +187,12 @@ content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
 background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transition: left 0.6s;
 }
 .btn:hover {
-transform: translateY(-5px); box-shadow: 0 25px 70px rgba(0,0,0,0.8); border-color: #ec4899;
-background: linear-gradient(145deg, #4b5563 0%, #374151 100%); color: #fff;
+transform: translateY(-5px); box-shadow: 0 25px 70px rgba(0,0,0,0.8);
+border-color: #ec4899; background: linear-gradient(145deg, #4b5563 0%, #374151 100%); color: #fff;
 }
 .btn:hover::before { left: 100%; }
+.btn-reset { background: linear-gradient(145deg, #4b5563 0%, #374151 100%); border-color: #6b7280; }
+.btn-reset:hover { border-color: #f1f5f9; background: linear-gradient(145deg, #6b7280 0%, #4b5563 100%); }
 @media (max-width: 768px) {
 .time-label { min-width: 60px; font-size: 11px; padding: 6px 8px; }
 .timeline-item { padding: 12px 12px; }
@@ -217,7 +219,7 @@ background: linear-gradient(145deg, #4b5563 0%, #374151 100%); color: #fff;
 <div class="schedule-grid" id="scheduleGrid"></div>
 <div class="schedule-grid" id="foodGrid"></div>
 
-<!-- Mobile Tabs -->
+<!-- Mobile tabs -->
 <div class="mobile-tabs">
 <div class="tab-buttons">
 <button class="tab-btn active" data-tab="0">💗 Working</button>
@@ -227,6 +229,7 @@ background: linear-gradient(145deg, #4b5563 0%, #374151 100%); color: #fff;
 </div>
 </div>
 
+<!-- Mobile content -->
 <div id="tab0" class="tab-content active">
 <div class="section-title-mobile working">Working Days 💗</div>
 <div class="mobile-timeline" id="mobileTimeline0"></div>
@@ -246,11 +249,11 @@ background: linear-gradient(145deg, #4b5563 0%, #374151 100%); color: #fff;
 
 <div class="controls">
 <button class="btn" onclick="clearToday()">✨ Clear Today Only</button>
-<button class="btn" onclick="clearFoodsToday()">🥗 Clear Today Foods</button>
+<button class="btn btn-reset" onclick="clearFoodsToday()">🥗 Clear Today Foods</button>
 </div>
 </div>
 
-<!-- Firebase -->
+<!-- Firebase SDK -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getDatabase, ref, set, get, child, remove } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
@@ -272,91 +275,74 @@ window.db = db; window.ref = ref; window.set = set; window.get = get; window.chi
 </script>
 
 <script>
-// ✅ FIXED - DATA WILL DISPLAY FROM YESTERDAY EVENING
-const timeSlots = ['4-5 AM','5-6 AM','6-7 AM','7-8 AM','8-9 AM','9-10 AM','10-11 AM','11-12 PM','12-1 PM','1-2 PM','2-3 PM','3-4 PM','4-5 PM','5-6 PM','6-7 PM','7-8 PM','8-9 PM','9-10 PM','10-11 PM'];
+const timeSlots = [
+'4-5 AM', '5-6 AM', '6-7 AM', '7-8 AM', '8-9 AM', '9-10 AM',
+'10-11 AM', '11-12 PM', '12-1 PM', '1-2 PM', '2-3 PM', '3-4 PM',
+'4-5 PM', '5-6 PM', '6-7 PM', '7-8 PM', '8-9 PM', '9-10 PM', '10-11 PM'
+];
 const sections = ['Working Days 💗', 'Holidays 🔵', 'Sunday ⚫'];
 
-let ALL_DATA = {}; let currentDateStr = ''; let yesterdayDateStr = '';
+// PERMANENT GLOBAL DATA - NEVER RESETS
+let ALL_DATA = {};
+let currentDateStr = '';
+let yesterdayDateStr = '';
 
-function getDateString(date = new Date()) { return date.toISOString().split('T')[0]; }
-
-function updateDateInfo() {
-  const now = new Date(); currentDateStr = getDateString(now);
-  yesterdayDateStr = getDateString(new Date(now.getTime() - 86400000));
-  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-  document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', options);
-  console.log('📅 Today:', currentDateStr, 'Yesterday:', yesterdayDateStr);
+// ===== DATE FUNCTIONS =====
+function getDateString(date = new Date()) {
+  return date.toISOString().split('T')[0];
 }
 
-// 🔍 LOAD ALL DATA - INCLUDING YESTERDAY EVENING
-async function loadAllData() {
-  console.log('🔄 LOADING DATA...');
+function updateDateInfo() {
+  const now = new Date();
+  currentDateStr = getDateString(now);
+  yesterdayDateStr = getDateString(new Date(now.getTime() - 86400000));
   
-  // 1. Load localStorage (old format + new format)
-  const oldData = JSON.parse(localStorage.getItem('dark_triple_activities')) || {};
-  const oldFoods = JSON.parse(localStorage.getItem('dark_triple_foods')) || {};
-  const newData = JSON.parse(localStorage.getItem('permanent_mighty_data_v2')) || {};
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', options);
+}
+
+// ===== LOAD ALL PERMANENT DATA FROM FIREBASE + localStorage =====
+async function loadAllPermanentData() {
+  console.log('🔄 Loading ALL permanent data from Firebase + localStorage...');
   
-  ALL_DATA = { ...newData };
+  // 1. Load localStorage first (fast)
+  ALL_DATA = JSON.parse(localStorage.getItem('permanent_mighty_data_v2')) || {};
   
-  // 2. Migrate old data to new format
-  Object.entries(oldData).forEach(([key, value]) => {
-    const dateMatch = key.match(/^(\d{4}-\d{2}-\d{2})_(\d+)_(.+)$/);
-    if (dateMatch) {
-      const [_, date, sectionIndex, time] = dateMatch;
-      ALL_DATA[date] = ALL_DATA[date] || {};
-      ALL_DATA[date][`${date}_${sectionIndex}_${time}`] = value;
-    }
-  });
-  
-  Object.entries(oldFoods).forEach(([key, value]) => {
-    const dateMatch = key.match(/^(\d{4}-\d{2}-\d{2})_(.+)$/);
-    if (dateMatch) {
-      const [_, date, time] = dateMatch;
-      ALL_DATA[date] = ALL_DATA[date] || {};
-      ALL_DATA[date][`${date}_${time}`] = value;
-    }
-  });
-  
-  // 3. Load Firebase data
+  // 2. Load ALL Firebase data (ROBUST - tries multiple paths)
   if (window.db) {
     try {
-      const [fbActivities, fbFoods, fbMighty] = await Promise.all([
-        window.get(window.ref(window.db, 'activities')),
-        window.get(window.ref(window.db, 'foods')),
-        window.get(window.ref(window.db, 'mightyData'))
-      ]);
-      
-      if (fbActivities.exists()) {
-        Object.entries(fbActivities.val()).forEach(([date, data]) => {
-          ALL_DATA[date] = { ...ALL_DATA[date], ...data };
-        });
-      }
-      if (fbFoods.exists()) {
-        Object.entries(fbFoods.val()).forEach(([date, data]) => {
-          ALL_DATA[date] = { ...ALL_DATA[date], ...data };
-        });
-      }
-      if (fbMighty.exists()) {
-        Object.assign(ALL_DATA, fbMighty.val());
+      // Try main path first
+      let firebaseSnap = await window.get(window.ref(window.db, 'mightyData'));
+      if (firebaseSnap.exists()) {
+        const firebaseData = firebaseSnap.val();
+        ALL_DATA = { ...ALL_DATA, ...firebaseData };
+        console.log('✅ mightyData loaded:', Object.keys(firebaseData).length, 'days');
+      } else {
+        // Fallback: try root
+        firebaseSnap = await window.get(window.ref(window.db));
+        if (firebaseSnap.exists()) {
+          const rootData = firebaseSnap.val();
+          ALL_DATA = { ...ALL_DATA, ...rootData };
+          console.log('✅ Root data loaded');
+        }
       }
     } catch(e) {
-      console.log('Firebase unavailable, using local data');
+      console.log('Firebase unavailable - using localStorage only');
     }
   }
   
-  // 4. Ensure dates exist
+  // 3. Ensure today/yesterday exist
   ALL_DATA[yesterdayDateStr] = ALL_DATA[yesterdayDateStr] || {};
   ALL_DATA[currentDateStr] = ALL_DATA[currentDateStr] || {};
   
+  // 4. Save merged data back
   localStorage.setItem('permanent_mighty_data_v2', JSON.stringify(ALL_DATA));
-  
-  console.log('✅ DATA LOADED:', Object.keys(ALL_DATA).length, 'days');
-  console.log('📋 YESTERDAY DATA:', Object.keys(ALL_DATA[yesterdayDateStr]).length, 'entries');
-  console.log('ALL_DATA sample:', Object.keys(ALL_DATA).slice(0,3));
+  console.log(`✅ TOTAL: ${Object.keys(ALL_DATA).length} days loaded`);
+  console.log(`📅 Today: ${Object.keys(ALL_DATA[currentDateStr]).length} entries`);
+  console.log(`📅 Yesterday: ${Object.keys(ALL_DATA[yesterdayDateStr]).length} entries`);
 }
 
-// 🎯 CREATE INPUTS THAT DISPLAY DATA CORRECTLY
+// ===== CREATE INPUT FIELDS (Loads ALL historical data) =====
 function createActivityInput(sectionIndex, time, dateStr = currentDateStr) {
   const input = document.createElement('textarea');
   input.className = 'activity-input';
@@ -366,11 +352,13 @@ function createActivityInput(sectionIndex, time, dateStr = currentDateStr) {
   const key = `${dateStr}_${sectionIndex}_${time}`;
   if (ALL_DATA[dateStr] && ALL_DATA[dateStr][key]) {
     input.value = ALL_DATA[dateStr][key];
-    console.log('✅ LOADED:', key, '=', ALL_DATA[dateStr][key]);
   }
   
   input.onblur = () => saveActivity(sectionIndex, time, input.value, dateStr);
-  input.onkeypress = (e) => { if (e.key === 'Enter' && e.ctrlKey) input.blur(); };
+  input.onkeypress = (e) => { 
+    if (e.key === 'Enter' && e.ctrlKey) input.blur(); 
+  };
+  
   return input;
 }
 
@@ -383,59 +371,79 @@ function createFoodInput(time, dateStr = currentDateStr) {
   const key = `${dateStr}_${time}`;
   if (ALL_DATA[dateStr] && ALL_DATA[dateStr][key]) {
     input.value = ALL_DATA[dateStr][key];
-    console.log('🍱 LOADED FOOD:', key, '=', ALL_DATA[dateStr][key]);
   }
   
   input.onblur = () => saveFood(time, input.value, dateStr);
-  input.onkeypress = (e) => { if (e.key === 'Enter' && e.ctrlKey) input.blur(); };
+  input.onkeypress = (e) => { 
+    if (e.key === 'Enter' && e.ctrlKey) input.blur(); 
+  };
+  
   return input;
 }
 
+// ===== SAVE TO PERMANENT STORAGE =====
 function saveActivity(sectionIndex, time, text, dateStr = currentDateStr) {
   const key = `${dateStr}_${sectionIndex}_${time}`;
+  
   if (text.trim()) {
     ALL_DATA[dateStr][key] = text.trim();
   } else {
     delete ALL_DATA[dateStr][key];
   }
-  syncData(dateStr);
+  
+  syncToAllStorage(dateStr);
   updateStats();
 }
 
 function saveFood(time, text, dateStr = currentDateStr) {
   const key = `${dateStr}_${time}`;
+  
   if (text.trim()) {
     ALL_DATA[dateStr][key] = text.trim();
   } else {
     delete ALL_DATA[dateStr][key];
   }
-  syncData(dateStr);
+  
+  syncToAllStorage(dateStr);
   updateStats();
 }
 
-function syncData(dateStr = currentDateStr) {
+// ===== SYNC TO FIREBASE + localStorage =====
+function syncToAllStorage(dateStr = currentDateStr) {
+  // Always save localStorage
   localStorage.setItem('permanent_mighty_data_v2', JSON.stringify(ALL_DATA));
+  
+  // Sync to Firebase
   if (window.db) {
-    window.set(window.ref(window.db, `mightyData/${dateStr}`), ALL_DATA[dateStr]);
+    window.set(window.ref(window.db, `mightyData/${dateStr}`), ALL_DATA[dateStr])
+      .catch(e => console.log('Firebase sync failed - localStorage saved'));
   }
 }
 
-// 🖥️ DESKTOP GRIDS
+// ===== DESKTOP GRIDS =====
 function initDesktopGrid() {
   const grid = document.getElementById('scheduleGrid');
   grid.innerHTML = '';
-  const timeHeader = document.createElement('div');
-  timeHeader.className = 'time-header'; timeHeader.textContent = 'Time'; grid.appendChild(timeHeader);
+  
+  // Headers
+  grid.appendChild(Object.assign(document.createElement('div'), {
+    className: 'time-header', textContent: 'Time'
+  }));
   
   sections.forEach((section, index) => {
     const header = document.createElement('div');
     header.className = `section-header ${index === 0 ? 'working-header' : index === 1 ? 'holiday-header' : 'sunday-header'}`;
-    header.textContent = section; grid.appendChild(header);
+    header.textContent = section;
+    grid.appendChild(header);
   });
   
+  // Time slots
   timeSlots.forEach(time => {
     const timeCell = document.createElement('div');
-    timeCell.className = 'time-slot'; timeCell.textContent = time; grid.appendChild(timeCell);
+    timeCell.className = 'time-slot';
+    timeCell.textContent = time;
+    grid.appendChild(timeCell);
+    
     sections.forEach((_, sectionIndex) => {
       const cell = document.createElement('div');
       cell.className = 'activity-cell';
@@ -448,55 +456,89 @@ function initDesktopGrid() {
 function initFoodGrid() {
   const grid = document.getElementById('foodGrid');
   grid.innerHTML = '';
+  
   const timeHeader = document.createElement('div');
-  timeHeader.className = 'time-header'; timeHeader.textContent = 'Time'; grid.appendChild(timeHeader);
+  timeHeader.className = 'time-header';
+  timeHeader.textContent = 'Time';
+  grid.appendChild(timeHeader);
+  
   const foodHeader = document.createElement('div');
-  foodHeader.className = 'section-header working-header'; foodHeader.textContent = 'Foods 🍱';
-  foodHeader.style.gridColumn = 'span 3'; grid.appendChild(foodHeader);
+  foodHeader.className = 'section-header working-header';
+  foodHeader.textContent = 'Foods 🍱';
+  foodHeader.style.gridColumn = 'span 3';
+  grid.appendChild(foodHeader);
   
   timeSlots.forEach(time => {
     const timeCell = document.createElement('div');
-    timeCell.className = 'time-slot'; timeCell.textContent = time; grid.appendChild(timeCell);
+    timeCell.className = 'time-slot';
+    timeCell.textContent = time;
+    grid.appendChild(timeCell);
+    
     const cell = document.createElement('div');
-    cell.className = 'activity-cell'; cell.style.gridColumn = 'span 3';
-    cell.appendChild(createFoodInput(time)); grid.appendChild(cell);
+    cell.className = 'activity-cell';
+    cell.style.gridColumn = 'span 3';
+    cell.appendChild(createFoodInput(time));
+    grid.appendChild(cell);
   });
 }
 
-// 📱 MOBILE
+// ===== MOBILE TIMELINES =====
 function createMobileTimeline(timelineId, sectionIndex) {
   const timeline = document.getElementById(timelineId);
   timeline.innerHTML = '';
+  
   timeSlots.forEach(time => {
-    const item = document.createElement('div'); item.className = 'timeline-item';
-    const timeLabel = document.createElement('div'); timeLabel.className = 'time-label'; timeLabel.textContent = time;
-    const cell = document.createElement('div'); cell.className = 'activity-cell';
+    const item = document.createElement('div');
+    item.className = 'timeline-item';
+    
+    const timeLabel = document.createElement('div');
+    timeLabel.className = 'time-label';
+    timeLabel.textContent = time;
+    
+    const cell = document.createElement('div');
+    cell.className = 'activity-cell';
     cell.appendChild(createActivityInput(sectionIndex, time));
-    item.appendChild(timeLabel); item.appendChild(cell); timeline.appendChild(item);
+    
+    item.appendChild(timeLabel);
+    item.appendChild(cell);
+    timeline.appendChild(item);
   });
 }
 
 function createMobileFoods() {
   const timeline = document.getElementById('mobileFoods');
   timeline.innerHTML = '';
+  
   timeSlots.forEach(time => {
-    const item = document.createElement('div'); item.className = 'timeline-item';
-    const timeLabel = document.createElement('div'); timeLabel.className = 'time-label'; timeLabel.textContent = time;
-    const cell = document.createElement('div'); cell.className = 'activity-cell';
+    const item = document.createElement('div');
+    item.className = 'timeline-item';
+    
+    const timeLabel = document.createElement('div');
+    timeLabel.className = 'time-label';
+    timeLabel.textContent = time;
+    
+    const cell = document.createElement('div');
+    cell.className = 'activity-cell';
     cell.appendChild(createFoodInput(time));
-    item.appendChild(timeLabel); item.appendChild(cell); timeline.appendChild(item);
+    
+    item.appendChild(timeLabel);
+    item.appendChild(cell);
+    timeline.appendChild(item);
   });
 }
 
+// ===== STATS (Today only) =====
 function updateStats() {
   const todayData = ALL_DATA[currentDateStr] || {};
   const sectionStats = [0, 0, 0];
+  
   sections.forEach((_, sectionIndex) => {
     timeSlots.forEach(time => {
       const key = `${currentDateStr}_${sectionIndex}_${time}`;
       if (todayData[key] && todayData[key].trim()) sectionStats[sectionIndex]++;
     });
   });
+  
   document.getElementById('workingStats').textContent = sectionStats[0];
   document.getElementById('holidayStats').textContent = sectionStats[1];
   document.getElementById('sundayStats').textContent = sectionStats[2];
@@ -509,51 +551,69 @@ function updateStats() {
   document.getElementById('foodStats').textContent = foodCount;
 }
 
+// ===== SAFE CLEAR (Protects yesterday data) =====
 function clearToday() {
-  if (!confirm(`Clear ONLY TODAY (${currentDateStr})?\nYesterday (${yesterdayDateStr}) SAFE!`)) return;
-  delete ALL_DATA[currentDateStr]; syncData(); refreshAll();
-}
-
-function clearFoodsToday() {
-  if (!confirm('Clear TODAY foods only?')) return;
-  if (ALL_DATA[currentDateStr]) {
-    timeSlots.forEach(time => delete ALL_DATA[currentDateStr][`${currentDateStr}_${time}`]);
-    syncData();
-  }
-  initFoodGrid(); createMobileFoods(); updateStats();
-}
-
-function refreshAll() {
+  if (!confirm(`Clear ONLY TODAY (${currentDateStr}) data?\n\nYesterday (${yesterdayDateStr}) data is PERMANENTLY PROTECTED.`)) return;
+  
+  delete ALL_DATA[currentDateStr];
+  syncToAllStorage();
+  
   initDesktopGrid(); initFoodGrid();
   sections.forEach((_, i) => createMobileTimeline(`mobileTimeline${i}`, i));
   createMobileFoods(); updateStats();
 }
 
-async function initApp() {
-  updateDateInfo();
-  await loadAllData();
-  refreshAll();
-  console.log('🚀 APP READY - Check console for data load details');
+function clearFoodsToday() {
+  if (!confirm('Clear ONLY TODAY foods?')) return;
+  
+  if (ALL_DATA[currentDateStr]) {
+    timeSlots.forEach(time => {
+      const key = `${currentDateStr}_${time}`;
+      delete ALL_DATA[currentDateStr][key];
+    });
+    syncToAllStorage();
+  }
+  
+  initFoodGrid(); createMobileFoods(); updateStats();
 }
 
-// EVENTS
-document.addEventListener('DOMContentLoaded', () => {
+// ===== MAIN INITIALIZATION =====
+async function initAllGrids() {
+  updateDateInfo();
+  await loadAllPermanentData(); // LOADS ALL HISTORY FROM FIREBASE
+  
+  initDesktopGrid(); initFoodGrid();
+  sections.forEach((_, index) => createMobileTimeline(`mobileTimeline${index}`, index));
+  createMobileFoods(); updateStats();
+  
+  console.log('🚀 MIGHTY APP READY! All data permanently loaded from Firebase ✅');
+}
+
+// ===== MOBILE TABS =====
+document.addEventListener('DOMContentLoaded', function () {
   const tabButtons = document.querySelectorAll('.tab-btn');
   const tabContents = document.querySelectorAll('.tab-content');
+  
   tabButtons.forEach(btn => {
-    btn.addEventListener('click', function() {
+    btn.addEventListener('click', function () {
       const tabIndex = parseInt(this.dataset.tab);
+      
       tabButtons.forEach(b => b.classList.remove('active'));
       this.classList.add('active');
-      tabContents.forEach(c => c.classList.remove('active'));
+      
+      tabContents.forEach(content => content.classList.remove('active'));
       document.getElementById(`tab${tabIndex}`).classList.add('active');
-      if (tabIndex === 3) createMobileFoods();
-      else createMobileTimeline(`mobileTimeline${tabIndex}`, tabIndex);
+      
+      if (tabIndex === 3) {
+        createMobileFoods();
+      } else {
+        createMobileTimeline(`mobileTimeline${tabIndex}`, tabIndex);
+      }
     });
   });
 });
 
-window.addEventListener('load', initApp);
+window.addEventListener('load', initAllGrids);
 setInterval(updateDateInfo, 60000);
 </script>
 </body>
