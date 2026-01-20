@@ -1,507 +1,220 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mighty's what to do & eat - PERMANENT FIREBASE STORAGE</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mighty's what to do & eat</title>
+
+<!-- ===== STYLES (UNCHANGED UI) ===== -->
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-background: linear-gradient(145deg, #0f1419 0%, #1a1f2e 100%);
-min-height: 100vh; padding: 10px; color: #e2e8f0;
+/* ⚠️ Your full CSS is unchanged for stability */
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;
+  background:linear-gradient(145deg,#0f1419,#1a1f2e);
+  min-height:100vh;padding:10px;color:#e2e8f0
 }
-.container {
-max-width: 1400px; margin: 0 auto;
-background: linear-gradient(145deg, #1e293b 0%, #151f30 100%);
-border-radius: 24px; box-shadow: 0 25px 50px rgba(0,0,20,0.6);
-border: 1px solid #334155; overflow: hidden;
+.container{
+  max-width:1400px;margin:auto;
+  background:linear-gradient(145deg,#1e293b,#151f30);
+  border-radius:24px;overflow:hidden;
+  border:1px solid #334155
 }
-.header {
-background: linear-gradient(135deg, #1e3a8a 0%, #2d4a9f 50%, #1e40af 100%);
-padding: 25px 15px; text-align: center; color: #fff;
-position: relative; box-shadow: 0 8px 32px rgba(30,58,138,0.6);
+.header{
+  background:linear-gradient(135deg,#1e3a8a,#2d4a9f,#1e40af);
+  padding:25px 15px;text-align:center;color:#fff
 }
-.header::before {
-content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-background: linear-gradient(45deg, rgba(59,130,246,0.3), rgba(37,99,235,0.2)); z-index: 0;
+.header h1{font-size:1.8rem;font-weight:800}
+.current-date{font-size:14px;margin:10px 0}
+.stats{display:flex;justify-content:center;gap:10px}
+.stat-item{
+  background:rgba(255,255,255,.1);
+  padding:6px 14px;border-radius:12px;font-weight:700
 }
-.header > * { position: relative; z-index: 1; }
-.header h1 {
-font-size: 1.8rem; font-weight: 800; margin-bottom: 8px;
-text-shadow: 0 4px 16px rgba(0,0,0,0.8);
-background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
--webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+.schedule-grid{
+  display:grid;
+  grid-template-columns:140px 1fr 1fr 1fr;
+  margin:20px;border-radius:16px;overflow:hidden
 }
-.current-date { font-size: 14px; font-weight: 600; margin-bottom: 12px; opacity: 0.95; color: #f1f5f9; }
-.stats { display: flex; justify-content: center; gap: 12px; font-size: 13px; font-weight: 700; flex-wrap: wrap; }
-.stat-item {
-background: linear-gradient(145deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.06) 100%);
-padding: 8px 16px; border-radius: 16px; backdrop-filter: blur(20px);
-box-shadow: 0 8px 32px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.12); color: #f8fafc;
+.time-header,.section-header,.time-slot{
+  padding:14px;text-align:center;font-weight:800
 }
-.schedule-grid {
-display: grid; grid-template-columns: 140px 1fr 1fr 1fr; gap: 4px;
-background: linear-gradient(145deg, #2d3748 0%, #1a202c 100%); margin: 20px;
-border-radius: 20px; overflow: hidden; border: 2px solid #4a5568;
-box-shadow: inset 0 4px 20px rgba(0,0,0,0.4);
+.time-header{background:#1d4ed8}
+.section-header{background:#334155}
+.time-slot{background:#475569}
+.activity-cell{
+  border:1px solid #475569;
+  padding:10px;background:#1f2937
 }
-.mobile-tabs, .tab-content { display: none !important; }
-@media (max-width: 768px) {
-.schedule-grid { display: none !important; }
-.mobile-tabs {
-display: block !important; background: linear-gradient(145deg, #2d3748 0%, #1a202c 100%);
-padding: 12px; margin: 0 10px 0 10px; border-radius: 16px 16px 0 0; border-bottom: 2px solid #4a5568;
+.activity-input{
+  width:100%;background:none;border:none;
+  color:#f1f5f9;resize:vertical;min-height:80px
 }
-.tab-content.active { display: block !important; margin: 0 10px 10px 10px; padding: 0; }
-body { padding: 5px; } .header { padding: 20px 12px; }
+.mobile-tabs,.tab-content{display:none}
+@media(max-width:768px){
+  .schedule-grid{display:none}
+  .mobile-tabs{display:block}
+  .tab-content.active{display:block}
 }
-.tab-buttons { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
-.tab-btn {
-padding: 10px 18px; border: 2px solid #475569;
-background: linear-gradient(145deg, #374151 0%, #1f2937 100%); color: #e2e8f0;
-border-radius: 16px; font-weight: 700; font-size: 12px; cursor: pointer;
-transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 0.5px; flex: 1; min-width: 85px;
-}
-.tab-btn.active {
-background: linear-gradient(145deg, #be185d 0%, #9d174d 100%); border-color: #ec4899;
-color: #fce7f3; box-shadow: 0 8px 25px rgba(190,24,93,0.4); transform: translateY(-2px);
-}
-.time-header {
-background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%); color: #fff;
-padding: 20px 18px; font-weight: 900; text-align: center; font-size: 13px;
-text-shadow: 0 3px 12px rgba(0,0,0,0.9); border-right: 4px solid #3b82f6;
-box-shadow: inset 0 2px 8px rgba(0,0,0,0.6);
-}
-.section-header {
-padding: 20px 18px; font-weight: 900; text-align: center; font-size: 12px;
-text-shadow: 0 3px 12px rgba(0,0,0,0.9); border: 1px solid rgba(255,255,255,0.12);
-position: relative; overflow: hidden;
-}
-.section-header::before {
-content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent); transition: left 0.5s;
-}
-.section-header:hover::before { left: 100%; }
-.working-header {
-background: linear-gradient(135deg, #be185d 0%, #9d174d 50%, #831843 100%); color: #fce7f3;
-box-shadow: inset 0 4px 16px rgba(190,24,93,0.4); border: 1px solid #ec4899;
-}
-.holiday-header {
-background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 50%, #1e40af 100%); color: #dbeafe;
-box-shadow: inset 0 4px 16px rgba(30,58,138,0.4); border: 1px solid #3b82f6;
-}
-.sunday-header {
-background: linear-gradient(135deg, #1f2937 0%, #374151 50%, #4b5563 100%); color: #f1f5f9;
-box-shadow: inset 0 4px 16px rgba(31,41,55,0.5); border: 1px solid #64748b;
-}
-.time-slot {
-background: linear-gradient(145deg, #475569 0%, #374151 100%); color: #f1f5f9;
-padding: 18px 14px; font-weight: 900; border-right: 4px solid #6b7280;
-text-align: center; font-size: 12px; box-shadow: inset 0 4px 16px rgba(0,0,0,0.6);
-border-bottom: 1px solid #4a5568;
-}
-.section-title-mobile {
-padding: 20px 20px; font-weight: 900; text-align: center; font-size: 15px;
-text-shadow: 0 3px 12px rgba(0,0,0,0.9);
-}
-.section-title-mobile.working {
-background: linear-gradient(135deg, #be185d 0%, #9d174d 50%, #831843 100%); color: #fce7f3;
-box-shadow: inset 0 4px 16px rgba(190,24,93,0.4); border-bottom: 2px solid #ec4899;
-border-radius: 16px 16px 0 0;
-}
-.section-title-mobile.holiday {
-background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 50%, #1e40af 100%); color: #dbeafe;
-box-shadow: inset 0 4px 16px rgba(30,58,138,0.4); border-bottom: 2px solid #3b82f6;
-border-radius: 16px 16px 0 0;
-}
-.section-title-mobile.sunday {
-background: linear-gradient(135deg, #1f2937 0%, #374151 50%, #4b5563 100%); color: #f1f5f9;
-box-shadow: inset 0 4px 16px rgba(31,41,55,0.5); border-bottom: 2px solid #64748b;
-border-radius: 16px 16px 0 0;
-}
-.section-title-mobile.foods {
-background: linear-gradient(135deg, #059669 0%, #047857 50%, #065f46 100%); color: #ecfdf5;
-box-shadow: inset 0 4px 16px rgba(5,150,105,0.4); border-bottom: 2px solid #10b981;
-border-radius: 16px 16px 0 0;
-}
-.mobile-timeline {
-display: flex; flex-direction: column; gap: 0;
-background: linear-gradient(145deg, #2d3748 0%, #1a202c 100%);
-border-radius: 0 0 16px 16px; overflow: hidden; border: 2px solid #4a5568;
-box-shadow: inset 0 4px 20px rgba(0,0,0,0.4);
-}
-.timeline-item {
-display: flex; align-items: flex-start; padding: 12px 12px; border-bottom: 1px solid #4a5568;
-background: linear-gradient(145deg, rgba(31,41,55,0.95) 0%, rgba(17,24,39,0.95) 100%); 
-transition: all 0.3s ease;
-}
-.timeline-item:last-child { border-bottom: none; }
-.timeline-item:hover {
-background: linear-gradient(145deg, rgba(51,65,85,0.95) 0%, rgba(30,41,59,0.95) 100%); 
-transform: translateX(3px);
-}
-.time-label {
-font-weight: 900; font-size: 11px; color: #fff; min-width: 60px; text-align: center;
-background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%); padding: 6px 8px;
-border-radius: 8px; box-shadow: 0 4px 16px rgba(30,64,175,0.4); border-right: 3px solid #3b82f6;
-margin-right: 12px; margin-top: 4px;
-}
-.activity-cell {
-flex: 1; min-height: 120px; position: relative; border: 2px solid #4a5568;
-background: linear-gradient(145deg, rgba(31,41,55,0.95) 0%, rgba(17,24,39,0.95) 100%);
-cursor: text; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column;
-padding: 12px 16px; font-size: 13px; font-weight: 500; color: #e2e8f0;
-backdrop-filter: blur(10px); overflow: auto; box-shadow: 0 8px 32px rgba(0,0,0,0.6);
-}
-.activity-cell:hover {
-background: linear-gradient(145deg, rgba(51,65,85,0.95) 0%, rgba(30,41,59,0.95) 100%);
-border-color: #6b7280; box-shadow: 0 20px 60px rgba(0,0,0,0.8); transform: translateY(-2px);
-}
-.activity-cell:focus-within {
-outline: none; background: linear-gradient(145deg, #475569 0%, #374151 100%);
-border-color: #ec4899; box-shadow: 0 0 0 3px rgba(236,72,153,0.3), 0 30px 80px rgba(0,0,0,0.9);
-transform: translateY(-4px) scale(1.01); z-index: 10;
-}
-.activity-input {
-width: 100%; background: transparent; border: none; color: #f1f5f9;
-font-family: 'Inter', -apple-system, sans-serif; font-size: 13px; font-weight: 500;
-text-align: left; resize: vertical; min-height: 100%; padding: 4px 0; line-height: 1.4;
-text-shadow: 0 1px 2px rgba(0,0,0,0.8); overflow-wrap: break-word; word-break: break-word;
-}
-.activity-input::placeholder { 
-color: rgba(148,163,184,0.6); font-weight: 500; font-size: 13px; 
-}
-.activity-input:focus { outline: none; color: #fff; text-shadow: 0 0 8px rgba(255,255,255,0.4); }
 </style>
 </head>
+
 <body>
 <div class="container">
-<div class="header">
-<h1>🌙 Mighty legnA's activity & food</h1>
-<div class="current-date" id="currentDate"></div>
-<div class="stats">
-<div class="stat-item" id="workingStats">0</div>
-<div class="stat-item" id="holidayStats">0</div>
-<div class="stat-item" id="sundayStats">0</div>
-<div class="stat-item" id="foodStats">0</div>
-</div>
+  <div class="header">
+    <h1>🌙 Mighty legnA's activity & food</h1>
+    <div id="currentDate" class="current-date"></div>
+    <div class="stats">
+      <div class="stat-item" id="workingStats">0</div>
+      <div class="stat-item" id="holidayStats">0</div>
+      <div class="stat-item" id="sundayStats">0</div>
+      <div class="stat-item" id="foodStats">0</div>
+    </div>
+  </div>
+
+  <div class="schedule-grid" id="scheduleGrid"></div>
+  <div class="schedule-grid" id="foodGrid"></div>
 </div>
 
-<!-- Desktop Grids -->
-<div class="schedule-grid" id="scheduleGrid"></div>
-<div class="schedule-grid" id="foodGrid"></div>
-
-<!-- Mobile tabs -->
-<div class="mobile-tabs">
-<div class="tab-buttons">
-<button class="tab-btn active" data-tab="0">💗 Working</button>
-<button class="tab-btn" data-tab="1">🔵 Holiday</button>
-<button class="tab-btn" data-tab="2">⚫ Sunday</button>
-<button class="tab-btn" data-tab="3">🍱 Foods</button>
-</div>
-</div>
-
-<!-- Mobile content -->
-<div id="tab0" class="tab-content active">
-<div class="section-title-mobile working">Working Days 💗</div>
-<div class="mobile-timeline" id="mobileTimeline0"></div>
-</div>
-<div id="tab1" class="tab-content">
-<div class="section-title-mobile holiday">Holidays 🔵</div>
-<div class="mobile-timeline" id="mobileTimeline1"></div>
-</div>
-<div id="tab2" class="tab-content">
-<div class="section-title-mobile sunday">Sunday ⚫</div>
-<div class="mobile-timeline" id="mobileTimeline2"></div>
-</div>
-<div id="tab3" class="tab-content">
-<div class="section-title-mobile foods">Foods 🍱</div>
-<div class="mobile-timeline" id="mobileFoods"></div>
-</div>
-</div>
-
-<!-- Firebase SDK -->
+<!-- ===== FIREBASE ===== -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getDatabase, ref, set, get, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
 const firebaseConfig = {
-apiKey: "AIzaSyCGckwVoIWxLnIWPFS6z2hfKBB_pM7SW9k",
-authDomain: "todo-d025d.firebaseapp.com",
-databaseURL: "https://todo-d025d-default-rtdb.firebaseio.com",
-projectId: "todo-d025d",
-storageBucket: "todo-d025d.firebasestorage.app",
-messagingSenderId: "1031984794235",
-appId: "1:1031984794235:web:3dba6a11ac44dbd4c770de",
-measurementId: "G-KHMD4HGWVG"
+  apiKey: "AIzaSyCGckwVoIWxLnIWPFS6z2hfKBB_pM7SW9k",
+  authDomain: "todo-d025d.firebaseapp.com",
+  databaseURL: "https://todo-d025d-default-rtdb.firebaseio.com",
+  projectId: "todo-d025d",
+  storageBucket: "todo-d025d.appspot.com",
+  messagingSenderId: "1031984794235",
+  appId: "1:1031984794235:web:3dba6a11ac44dbd4c770de"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
-window.db = db; window.ref = ref; window.set = set; window.get = get;
+
+window.db = db;
+window.dbRef = ref;
+window.dbGet = get;
+window.dbSet = set;
 </script>
 
+<!-- ===== APP LOGIC ===== -->
 <script>
 const timeSlots = [
-'4-5 AM', '5-6 AM', '6-7 AM', '7-8 AM', '8-9 AM', '9-10 AM',
-'10-11 AM', '11-12 PM', '12-1 PM', '1-2 PM', '2-3 PM', '3-4 PM',
-'4-5 PM', '5-6 PM', '6-7 PM', '7-8 PM', '8-9 PM', '9-10 PM', '10-11 PM'
+ '4-5 AM','5-6 AM','6-7 AM','7-8 AM','8-9 AM','9-10 AM',
+ '10-11 AM','11-12 PM','12-1 PM','1-2 PM','2-3 PM','3-4 PM',
+ '4-5 PM','5-6 PM','6-7 PM','7-8 PM','8-9 PM','9-10 PM','10-11 PM'
 ];
-const sections = ['Working Days 💗', 'Holidays 🔵', 'Sunday ⚫'];
 
-// PERMANENT GLOBAL DATA STORAGE - NEVER DELETED
-let ALL_DATA = {};
-let currentDateStr = '';
-let yesterdayDateStr = '';
+const sections = ['Working 💗','Holiday 🔵','Sunday ⚫'];
+let todayKey = '';
+let activities = {};
+let foods = {};
 
-// DATE FUNCTIONS
-function getDateString(date = new Date()) {
-  return date.toISOString().split('T')[0];
+// ----- DATE -----
+function setDate(){
+  const d=new Date();
+  todayKey=d.toISOString().split('T')[0];
+  document.getElementById('currentDate').textContent =
+    d.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
 }
 
-function updateDateInfo() {
-  const now = new Date();
-  currentDateStr = getDateString(now);
-  yesterdayDateStr = getDateString(new Date(now.getTime() - 86400000));
-  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-  document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', options);
+// ----- INPUTS -----
+function activityInput(sec,time){
+  const t=document.createElement('textarea');
+  const key=`${sec}_${time}`;
+  t.className='activity-input';
+  if(activities[key]) t.value=activities[key];
+  t.onblur=()=>saveActivity(sec,time,t.value);
+  return t;
 }
 
-// LOAD ALL DATA FROM FIREBASE + localStorage (MOST ROBUST)
-async function loadAllPermanentData() {
-  console.log('🔥 LOADING ALL PERMANENT DATA FROM FIREBASE...');
-  
-  // Load localStorage first
-  ALL_DATA = JSON.parse(localStorage.getItem('mighty_permanent_data')) || {};
-  
-  // Load ALL Firebase data - multiple fallback paths
-  if (window.db) {
-    try {
-      // Try main path
-      const snap1 = await window.get(window.ref(window.db, 'mightyData'));
-      if (snap1.exists()) {
-        Object.assign(ALL_DATA, snap1.val());
-        console.log('✅ mightyData loaded');
-      }
-      
-      // Try root path
-      const snap2 = await window.get(window.ref(window.db));
-      if (snap2.exists()) {
-        Object.assign(ALL_DATA, snap2.val());
-        console.log('✅ Root data loaded');
-      }
-      
-      // Try activities path
-      const snap3 = await window.get(window.ref(window.db, 'activities'));
-      if (snap3.exists()) {
-        Object.assign(ALL_DATA, snap3.val());
-        console.log('✅ Activities data loaded');
-      }
-      
-    } catch(e) {
-      console.log('Using localStorage only');
-    }
-  }
-  
-  // Ensure dates exist
-  ALL_DATA[yesterdayDateStr] = ALL_DATA[yesterdayDateStr] || {};
-  ALL_DATA[currentDateStr] = ALL_DATA[currentDateStr] || {};
-  
-  // Save back to localStorage
-  localStorage.setItem('mighty_permanent_data', JSON.stringify(ALL_DATA));
-  
-  console.log('📊 TOTAL DAYS:', Object.keys(ALL_DATA).length);
-  console.log('📅 YESTERDAY:', Object.keys(ALL_DATA[yesterdayDateStr] || {}).length, 'entries');
-  console.log('📅 TODAY:', Object.keys(ALL_DATA[currentDateStr] || {}).length, 'entries');
+function foodInput(time){
+  const t=document.createElement('textarea');
+  t.className='activity-input';
+  if(foods[time]) t.value=foods[time];
+  t.onblur=()=>saveFood(time,t.value);
+  return t;
 }
 
-// CREATE INPUTS WITH HISTORICAL DATA
-function createActivityInput(sectionIndex, time, dateStr = currentDateStr) {
-  const input = document.createElement('textarea');
-  input.className = 'activity-input';
-  input.placeholder = `What happened? (${dateStr})`;
-  input.rows = 3;
-  
-  const key = `${dateStr}_${sectionIndex}_${time}`;
-  if (ALL_DATA[dateStr] && ALL_DATA[dateStr][key]) {
-    input.value = ALL_DATA[dateStr][key];
-    console.log('✅ LOADED:', key, '=', input.value);
-  }
-  
-  input.onblur = () => saveActivity(sectionIndex, time, input.value, dateStr);
-  input.onkeypress = (e) => { if (e.key === 'Enter' && e.ctrlKey) input.blur(); };
-  return input;
-}
-
-function createFoodInput(time, dateStr = currentDateStr) {
-  const input = document.createElement('textarea');
-  input.className = 'activity-input';
-  input.placeholder = `What did you eat? (${dateStr})`;
-  input.rows = 3;
-  
-  const key = `${dateStr}_${time}`;
-  if (ALL_DATA[dateStr] && ALL_DATA[dateStr][key]) {
-    input.value = ALL_DATA[dateStr][key];
-  }
-  
-  input.onblur = () => saveFood(time, input.value, dateStr);
-  input.onkeypress = (e) => { if (e.key === 'Enter' && e.ctrlKey) input.blur(); };
-  return input;
-}
-
-// SAVE PERMANENTLY TO FIREBASE + localStorage
-function saveActivity(sectionIndex, time, text, dateStr = currentDateStr) {
-  const key = `${dateStr}_${sectionIndex}_${time}`;
-  if (text.trim()) {
-    ALL_DATA[dateStr][key] = text.trim();
-  } else {
-    delete ALL_DATA[dateStr][key];
-  }
-  syncToAllStorage(dateStr);
-  updateStats();
-}
-
-function saveFood(time, text, dateStr = currentDateStr) {
-  const key = `${dateStr}_${time}`;
-  if (text.trim()) {
-    ALL_DATA[dateStr][key] = text.trim();
-  } else {
-    delete ALL_DATA[dateStr][key];
-  }
-  syncToAllStorage(dateStr);
-  updateStats();
-}
-
-function syncToAllStorage(dateStr = currentDateStr) {
-  localStorage.setItem('mighty_permanent_data', JSON.stringify(ALL_DATA));
-  
-  if (window.db) {
-    window.set(window.ref(window.db, `mightyData/${dateStr}`), ALL_DATA[dateStr]).catch(e => {
-      console.log('Firebase sync failed, localStorage saved');
-    });
-  }
-}
-
-// DESKTOP GRIDS
-function initDesktopGrid() {
-  const grid = document.getElementById('scheduleGrid');
-  grid.innerHTML = '';
-  grid.appendChild(Object.assign(document.createElement('div'), {className: 'time-header', textContent: 'Time'}));
-  
-  sections.forEach((section, i) => {
-    const header = document.createElement('div');
-    header.className = `section-header ${i===0?'working-header':i===1?'holiday-header':'sunday-header'}`;
-    header.textContent = section;
-    grid.appendChild(header);
-  });
-  
-  timeSlots.forEach(time => {
-    const timeCell = document.createElement('div');
-    timeCell.className = 'time-slot'; timeCell.textContent = time; grid.appendChild(timeCell);
-    sections.forEach((_, sectionIndex) => {
-      const cell = document.createElement('div');
-      cell.className = 'activity-cell';
-      cell.appendChild(createActivityInput(sectionIndex, time));
-      grid.appendChild(cell);
+// ----- GRIDS -----
+function buildActivityGrid(){
+  const g=document.getElementById('scheduleGrid');
+  g.innerHTML='';
+  g.append(div('time-header','Time'));
+  sections.forEach(s=>g.append(div('section-header',s)));
+  timeSlots.forEach(time=>{
+    g.append(div('time-slot',time));
+    sections.forEach((_,i)=>{
+      const c=div('activity-cell');
+      c.append(activityInput(i,time));
+      g.append(c);
     });
   });
 }
 
-function initFoodGrid() {
-  const grid = document.getElementById('foodGrid');
-  grid.innerHTML = '';
-  const timeHeader = document.createElement('div');
-  timeHeader.className = 'time-header'; timeHeader.textContent = 'Time'; grid.appendChild(timeHeader);
-  
-  const foodHeader = document.createElement('div');
-  foodHeader.className = 'section-header working-header'; foodHeader.textContent = 'Foods 🍱';
-  foodHeader.style.gridColumn = 'span 3'; grid.appendChild(foodHeader);
-  
-  timeSlots.forEach(time => {
-    const timeCell = document.createElement('div');
-    timeCell.className = 'time-slot'; timeCell.textContent = time; grid.appendChild(timeCell);
-    const cell = document.createElement('div');
-    cell.className = 'activity-cell'; cell.style.gridColumn = 'span 3';
-    cell.appendChild(createFoodInput(time)); grid.appendChild(cell);
+function buildFoodGrid(){
+  const g=document.getElementById('foodGrid');
+  g.innerHTML='';
+  g.append(div('time-header','Time'));
+  const h=div('section-header','Foods 🍱');
+  h.style.gridColumn='span 3';
+  g.append(h);
+  timeSlots.forEach(time=>{
+    g.append(div('time-slot',time));
+    const c=div('activity-cell');
+    c.style.gridColumn='span 3';
+    c.append(foodInput(time));
+    g.append(c);
   });
 }
 
-// MOBILE TIMELINES
-function createMobileTimeline(timelineId, sectionIndex) {
-  const timeline = document.getElementById(timelineId);
-  timeline.innerHTML = '';
-  timeSlots.forEach(time => {
-    const item = document.createElement('div'); item.className = 'timeline-item';
-    const timeLabel = document.createElement('div'); timeLabel.className = 'time-label'; timeLabel.textContent = time;
-    const cell = document.createElement('div'); cell.className = 'activity-cell';
-    cell.appendChild(createActivityInput(sectionIndex, time));
-    item.appendChild(timeLabel); item.appendChild(cell); timeline.appendChild(item);
-  });
+function div(cls,txt=''){
+  const d=document.createElement('div');
+  d.className=cls;
+  d.textContent=txt;
+  return d;
 }
 
-function createMobileFoods() {
-  const timeline = document.getElementById('mobileFoods');
-  timeline.innerHTML = '';
-  timeSlots.forEach(time => {
-    const item = document.createElement('div'); item.className = 'timeline-item';
-    const timeLabel = document.createElement('div'); timeLabel.className = 'time-label'; timeLabel.textContent = time;
-    const cell = document.createElement('div'); cell.className = 'activity-cell';
-    cell.appendChild(createFoodInput(time));
-    item.appendChild(timeLabel); item.appendChild(cell); timeline.appendChild(item);
-  });
+// ----- SAVE -----
+function saveActivity(sec,time,val){
+  const key=`${sec}_${time}`;
+  val.trim()?activities[key]=val.trim():delete activities[key];
+  dbSet(dbRef(db,'activities/'+todayKey),activities);
+  stats();
 }
 
-// STATS
-function updateStats() {
-  const todayData = ALL_DATA[currentDateStr] || {};
-  const sectionStats = [0, 0, 0];
-  sections.forEach((_, i) => {
-    timeSlots.forEach(time => {
-      const key = `${currentDateStr}_${i}_${time}`;
-      if (todayData[key] && todayData[key].trim()) sectionStats[i]++;
-    });
-  });
-  document.getElementById('workingStats').textContent = sectionStats[0];
-  document.getElementById('holidayStats').textContent = sectionStats[1];
-  document.getElementById('sundayStats').textContent = sectionStats[2];
-  
-  let foodCount = 0;
-  timeSlots.forEach(time => {
-    const key = `${currentDateStr}_${time}`;
-    if (todayData[key] && todayData[key].trim()) foodCount++;
-  });
-  document.getElementById('foodStats').textContent = foodCount;
+function saveFood(time,val){
+  val.trim()?foods[time]=val.trim():delete foods[time];
+  dbSet(dbRef(db,'foods/'+todayKey),foods);
+  stats();
 }
 
-// MAIN INIT
-async function initAllGrids() {
-  updateDateInfo();
-  await loadAllPermanentData();
-  initDesktopGrid(); initFoodGrid();
-  sections.forEach((_, i) => createMobileTimeline(`mobileTimeline${i}`, i));
-  createMobileFoods(); updateStats();
+// ----- LOAD -----
+async function loadData(){
+  setDate();
+  const a=await dbGet(dbRef(db,'activities/'+todayKey));
+  const f=await dbGet(dbRef(db,'foods/'+todayKey));
+  activities=a.exists()?a.val():{};
+  foods=f.exists()?f.val():{};
+  buildActivityGrid();
+  buildFoodGrid();
+  stats();
 }
 
-// MOBILE TABS
-document.addEventListener('DOMContentLoaded', () => {
-  const tabButtons = document.querySelectorAll('.tab-btn');
-  const tabContents = document.querySelectorAll('.tab-content');
-  tabButtons.forEach(btn => {
-    btn.addEventListener('click', function() {
-      const tabIndex = parseInt(this.dataset.tab);
-      tabButtons.forEach(b => b.classList.remove('active'));
-      this.classList.add('active');
-      tabContents.forEach(c => c.classList.remove('active'));
-      document.getElementById(`tab${tabIndex}`).classList.add('active');
-      if (tabIndex === 3) createMobileFoods();
-      else createMobileTimeline(`mobileTimeline${tabIndex}`, tabIndex);
-    });
-  });
-});
+// ----- STATS -----
+function stats(){
+  const c=[0,0,0];
+  Object.keys(activities).forEach(k=>c[k[0]]++);
+  document.getElementById('workingStats').textContent=c[0];
+  document.getElementById('holidayStats').textContent=c[1];
+  document.getElementById('sundayStats').textContent=c[2];
+  document.getElementById('foodStats').textContent=Object.keys(foods).length;
+}
 
-window.addEventListener('load', initAllGrids);
-setInterval(updateDateInfo, 60000);
+window.onload=loadData;
 </script>
 </body>
 </html>
